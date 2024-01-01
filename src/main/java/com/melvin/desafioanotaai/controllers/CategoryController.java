@@ -11,16 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @Autowired
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category newCategory = categoryService.create(categoryDTO);
         return ResponseEntity.ok().body(newCategory);
@@ -38,13 +37,13 @@ public class CategoryController {
         return ResponseEntity.ok().body(allCategories);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") String id, @RequestBody CategoryDTO categoryDTO) {
         Category updatedCategory = categoryService.update(id, categoryDTO);
         return ResponseEntity.ok().body(updatedCategory);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Category> deleteCategory(@PathVariable("id") String id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
