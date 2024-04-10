@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/category")
@@ -23,6 +24,12 @@ public class CategoryController {
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category newCategory = categoryService.create(categoryDTO);
         return ResponseEntity.ok().body(newCategory);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Category>> getCategory(@PathVariable("id") String id) {
+        Optional<Category> category = categoryService.getById(id);
+        return ResponseEntity.ok().body(category);
     }
 
     @GetMapping("")
